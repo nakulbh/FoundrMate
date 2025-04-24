@@ -18,3 +18,8 @@ email-server/.env.development
 streamlit-client/.env
 streamlit-client/venv
 streamlit-client/email_viewer.log
+Ai-service/.env
+Ai-service/.env.local
+Ai-service/venv
+Ai-service/requirements.txt
+Ai-service/ai_service.log
