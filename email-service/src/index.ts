@@ -3,12 +3,16 @@ import dotenv from 'dotenv';
 import emailRouter from './route';
 import Cors from 'cors';
 import { extractAccessToken } from './middleware';
+import morgan from 'morgan';
 
 dotenv.config();
 
 
 const app = express();
 const port = process.env.PORT || 3000;
+
+app.use(morgan(':method :url :status :response-time ms - :res[content-length]'));
+
 
 app.use(Cors({origin:true}))
 
@@ -29,3 +33,5 @@ app.use('/email', emailRouter);
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
+
+
