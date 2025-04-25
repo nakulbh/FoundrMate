@@ -10,11 +10,21 @@ export const getThreads = async (req: Request, res: Response) => {
     if (!accessToken) {
       return res.status(400).json({ error: 'Access token is required' });
     }
+    const maxResults = req.query.maxResults ? parseInt(req.query.maxResults as string) : 10;
+    const q = req.query.q as string | undefined;
+    const pageToken = req.query.pageToken as string | undefined;
+    const labelIds = req.query.labelIds as string[] | undefined;
+    const includeSpamTrash = req.query.includeSpamTrash as boolean | undefined;
 
     const gmail = createGmailClientWithToken(accessToken);
 
     const response = await gmail.users.threads.list({
       userId: 'me',
+      maxResults,
+      q,
+      pageToken,
+      labelIds,
+      includeSpamTrash
     });
 
     if (!response.data) {
