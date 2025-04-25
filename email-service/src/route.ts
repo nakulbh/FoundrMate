@@ -35,7 +35,7 @@ const router = Router();
 // Send oauth_token in the request body or as Authorization header
 // Supports the same query parameters as the /list route
 
-router.post('/get-message', getMessages as RequestHandler);
+router.get('/get-message', getMessages as RequestHandler);
 router.get('/get-message/:id', getMessageById as RequestHandler);
 router.get('/get-threads/', getThreads as RequestHandler);
 router.get('/get-thread/:id', getThreadById as RequestHandler);

@@ -5,12 +5,8 @@ import { handleGmailError } from './email.controller';
 
 export const getThreads = async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
     const accessToken = req.accessToken;
 
-    if (!id) {
-      return res.status(400).json({ error: 'Email ID is required' });
-    }
     if (!accessToken) {
       return res.status(400).json({ error: 'Access token is required' });
     }
