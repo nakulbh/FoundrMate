@@ -6,5 +6,7 @@ const router = express.Router();
 
 router.get('/google', redirectToGoogle);
 router.get('/google/callback', googleCallback as RequestHandler);
+router.get('/logout', (req, res) => {},
+router.get('/reset-token', (req, res) => {}
 
 export default router;

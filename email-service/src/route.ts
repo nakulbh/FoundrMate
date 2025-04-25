@@ -10,7 +10,10 @@ import {
   modifyEmailLabels,
   batchModifyEmailLabels
 } from './controllers/email.controller';
-import { getEmailById } from './controllers/getEmailById';
+import { getMessageById } from './controllers/getMessageById';
+import { getThreadById } from './controllers/getThreadById';
+import { getThreads } from './controllers/getThreads';
+import { getMessages } from './controllers/getMessages';
 
 // Type for request handlers to ensure proper typing
 type RequestHandler = (req: Request, res: Response, next?: NextFunction) => Promise<any> | void;
@@ -25,19 +28,17 @@ const router = Router();
 // - pageToken: Token for pagination
 // - labelIds: Comma-separated list of label IDs to filter by
 // - includeSpamTrash: Whether to include messages from spam and trash
-router.get('/list', getEmails as RequestHandler);
+// router.get('/list', getEmails as RequestHandler);
 
 // Email operations with client-provided access token
 // POST /email/list-with-token - List emails with client's OAuth token
 // Send oauth_token in the request body or as Authorization header
 // Supports the same query parameters as the /list route
-router.post('/list-with-token', getEmailsWithToken as RequestHandler);
-
-router.get('/get-email/:id', getEmailById as RequestHandler);
-router.get('/full-thread/:id', getFullEmail as RequestHandler);
-router.get('/get-thread/', getFullEmail as RequestHandler);
-
-// Uncomment other routes as needed later
+router.post('/get-message', getMessages as RequestHandler);
+router.get('/get-message/:id', getMessageById as RequestHandler);
+router.get('/get-threads/', getThreads as RequestHandler);
+router.get('/get-thread/:id', getThreadById as RequestHandler);
+router.get('/get-attachments/:id', getAttachment as RequestHandler);
 
 // Export the router
 export default router;
