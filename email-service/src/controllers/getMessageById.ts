@@ -9,7 +9,6 @@ function decodeBase64Url(data: string): string {
 
 function extractBody(payload: any): { html?: string; text?: string } {
   let body: { html?: string; text?: string } = { html: undefined, text: undefined };
-
   const parts = payload.parts || [payload]; // If not multipart, treat payload as a single part
 
   for (const part of parts) {
@@ -33,6 +32,26 @@ function extractBody(payload: any): { html?: string; text?: string } {
   }
 
   return body;
+}
+
+// Helper to extract attachments from a payload's parts
+function extractAttachments(parts: any[]): any[] {
+  let result: any[] = [];
+  if (!parts) return result;
+  for (const part of parts) {
+    if (part.filename && part.filename.length > 0 && part.body && part.body.attachmentId) {
+      result.push({
+        filename: part.filename,
+        mimeType: part.mimeType,
+        attachmentId: part.body.attachmentId,
+        size: part.body.size,
+      });
+    }
+    if (part.parts) {
+      result = result.concat(extractAttachments(part.parts));
+    }
+  }
+  return result;
 }
 
 export const getMessageById = async (req: Request, res: Response) => {
@@ -62,7 +81,9 @@ export const getMessageById = async (req: Request, res: Response) => {
     const emailData = response.data;
     const { payload, snippet } = emailData;
 
+    // Extract body and attachments
     const body = extractBody(payload);
+    const attachments = extractAttachments(payload?.parts || []);
 
     res.json({
       success: true,
@@ -72,6 +93,7 @@ export const getMessageById = async (req: Request, res: Response) => {
       to: payload?.headers?.find((h: any) => h.name === 'To')?.value || '',
       snippet,
       body,
+      attachments,
     });
 
   } catch (error) {
