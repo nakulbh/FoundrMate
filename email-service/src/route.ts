@@ -60,7 +60,8 @@ router.post('/create-draft', createDraft as RequestHandler);
 // Supports both GET and POST operations on the same endpoint
 // GET: retrieves emails with query parameters
 // POST: sends an email or creates a draft
-router.route('/email')
+// Since the router is mounted at '/email' in index.ts, we use '/' here
+router.route('/')
   .get(getMessageWithQuery as RequestHandler)
   .post(sendEmail as RequestHandler);
 
