@@ -4,11 +4,11 @@ import { handleGmailError } from './email.controller';
 
 export const getAttachment = async (req: Request, res: Response) => {
   try {
-    const { userId, messageId, attachmentId } = req.params;
+    const { messageId, attachmentId } = req.params;
     const accessToken = req.accessToken;
 
-    if (!userId || !messageId || !attachmentId) {
-      return res.status(400).json({ error: 'userId, messageId, and attachmentId are required' });
+    if (!messageId || !attachmentId) {
+      return res.status(400).json({ error: 'messageId and attachmentId are required' });
     }
     if (!accessToken) {
       return res.status(400).json({ error: 'Access token is required' });
