@@ -1,23 +1,13 @@
 "use client";
-import { ArrowUp, RefreshCw, Plus, Loader2, X } from "lucide-react";
+import { ArrowUp, RefreshCw, Plus, Loader2, X, Pause, Square } from "lucide-react";
 import React, { useEffect, useRef, useState } from "react";
+import { Message,MainProps } from "@/types/chat";
 
-interface Message {
-  id: number;
-  text: string;
-  type: "user" | "bot";
-  timestamp?: Date;
-}
 
-interface MainProps {
-  name?: string;
-  onSendMessage?: (message: string) => void;
-}
 
 const getRandomDelay = () => Math.floor(Math.random() * 2000) + 1000;
 
-export default function Main({ name, onSendMessage }: MainProps) {
-  const [isOpen, setIsOpen] = useState(true);
+export default function Main({ name,isOpen,setIsOpen ,onSendMessage }: MainProps) {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: 1,
@@ -179,8 +169,8 @@ export default function Main({ name, onSendMessage }: MainProps) {
     return null;
   }
   return (
-    <div className="flex flex-col w-[40vh] h-full max-h-[98vh] px-4  bg-gray-50 border-2 border-gray-100 rounded-l-xl max-w-full">
-      <div className="flex flex-row items-center justify-between w-full py-2 border-b border-gray-200">
+    <div className="flex flex-col min-w-[38vh] h-full max-h-screen px-4 transition-all duration-300  bg-gray-50 border-2 border-gray-100  max-w-full">
+      <div className="flex flex-row items-center justify-between w-full py-4 ">
         <h2 className="font-semibold text-lg truncate">{name || "Chat"}</h2>
         <span className="flex flex-row gap-2">
           <button
@@ -257,10 +247,10 @@ export default function Main({ name, onSendMessage }: MainProps) {
             {isLoading ? (
               <button
                 onClick={handleCancelRequest}
-                className="p-2 rounded-full transition-all bg-red-500 hover:bg-red-600 mr-1"
+                className="p-2 rounded-full transition-all bg-gray-400 hover:bg-gray-600 mr-1"
                 aria-label="Cancel request"
               >
-                <X color="white" size={18} />
+                <Square color="white" size={18} />
               </button>
             ) : (
               <button

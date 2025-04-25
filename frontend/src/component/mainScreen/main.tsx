@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Pen, PenSquare, Search, Sparkles, X } from 'lucide-react'
 
-export default function Main() {
+export default function Main({isChatOpen, setIsChatOpen}: {isChatOpen: boolean, setIsChatOpen: (isOpen: boolean) => void}) {
     const [isSearchVisible, setIsSearchVisible] = useState(false)
     const [searchText, setSearchText] = useState("")
     const searchInputRef = useRef<HTMLInputElement>(null)
@@ -39,8 +39,13 @@ export default function Main() {
         }
     }
 
+    const handelAiClick = (): void => {
+        setIsChatOpen(!isChatOpen)
+    }
+    
+
     return (
-        <div className='flex flex-row items-center justify-between w-full h-16 p-4 bg-white border-b shadow-sm'>
+        <div className='flex flex-row items-center justify-between w-full h-16 p-4 bg-white border-b '>
             {isSearchVisible ? (
                 <form onSubmit={handleSearchSubmit} className='flex flex-row items-center justify-between w-full h-full'>
                     <input
@@ -95,6 +100,7 @@ export default function Main() {
                         <button 
                             aria-label="AI suggestions"
                             className='p-2 rounded-full hover:bg-gray-100 transition-colors'
+                            onClick={handelAiClick}
                         >
                             <Sparkles size={20} />
                         </button>
