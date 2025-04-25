@@ -35,7 +35,7 @@ function extractBody(payload: any): { html?: string; text?: string } {
   return body;
 }
 
-export const getEmailById = async (req: Request, res: Response) => {
+export const getMessageById = async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
     const accessToken = req.accessToken;
