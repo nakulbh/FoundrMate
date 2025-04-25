@@ -64,5 +64,5 @@ router.post('/create-draft', createDraft as RequestHandler);
 router.route('/')
   .get(getMessageWithQuery as RequestHandler)
   .post(sendEmail as RequestHandler);
-
+  
 export default router;
