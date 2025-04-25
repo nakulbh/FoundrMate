@@ -39,5 +39,5 @@ router.get('/get-message', getMessages as RequestHandler);
 router.get('/get-message/:id', getMessageById as RequestHandler);
 router.get('/get-threads/', getThreads as RequestHandler);
 router.get('/get-thread/:id', getThreadById as RequestHandler);
-router.get('/get-attachment/:userId/:messageId/:attachmentId', getAttachment as RequestHandler);
+router.get('/get-attachment/:messageId/:attachmentId', getAttachment as RequestHandler);
 export default router;

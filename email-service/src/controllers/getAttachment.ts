@@ -17,7 +17,7 @@ export const getAttachment = async (req: Request, res: Response) => {
     const gmail = createGmailClientWithToken(accessToken);
 
     const response = await gmail.users.messages.attachments.get({
-      userId,
+      userId: 'me',
       messageId,
       id: attachmentId,
     });
