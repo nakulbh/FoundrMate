@@ -14,6 +14,7 @@ import { getMessageById } from './controllers/getMessageById';
 import { getThreadById } from './controllers/getThreadById';
 import { getThreads } from './controllers/getThreads';
 import { getMessages } from './controllers/getMessages';
+import { getMessageWithQuery } from './controllers/getMessageWithQuery';
 
 // Type for request handlers to ensure proper typing
 type RequestHandler = (req: Request, res: Response, next?: NextFunction) => Promise<any> | void;
@@ -40,4 +41,6 @@ router.get('/get-message/:id', getMessageById as RequestHandler);
 router.get('/get-threads/', getThreads as RequestHandler);
 router.get('/get-thread/:id', getThreadById as RequestHandler);
 router.get('/get-attachment/:messageId/:attachmentId', getAttachment as RequestHandler);
+router.get('/getMessage/:labelId/:query', getMessageWithQuery as RequestHandler);
+
 export default router;
